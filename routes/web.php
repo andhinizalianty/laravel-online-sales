@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\ProductCatalogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
@@ -25,6 +27,11 @@ Route::middleware(['auth', 'role:customer'])->group(function () {
     Route::post('/keranjang/{product}', [CartController::class, 'store'])->name('cart.store');
     Route::patch('/keranjang/{product}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/keranjang/{product}', [CartController::class, 'destroy'])->name('cart.destroy');
+    // M6 - Checkout dan riwayat pesanan
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('/pesanan', [CustomerOrderController::class, 'index'])->name('orders.index');
+    Route::get('/pesanan/{order}', [CustomerOrderController::class, 'show'])->name('orders.show');
 });
 
 // ---------- Katalog Publik (M4) ----------
